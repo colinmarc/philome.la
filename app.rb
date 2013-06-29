@@ -28,7 +28,7 @@ class User
 end
 
 class Twine
-  include MongoMapper
+  include MongoMapper::Document
 
   key :name, String
   key :token, String
