@@ -5,6 +5,29 @@ require 'omniauth'
 require 'omniauth-twitter'
 require 'mongo_mapper'
 
+class User
+  include MongoMapper::Document
+
+  key :uid, String
+  key :handle, String
+  key :created, Time
+
+  many :twines, :class_name => 'Twine', :foreign_key => :creator_id
+end
+
+class Twine
+  include MongoMapper::Document
+
+  key :uid, String
+  key :name, String
+  key :description, String
+  key :created, Time
+  key :likes, Integer
+
+  key :creator_id, ObjectId
+  belongs_to :creator, :class_name => 'User'
+end
+
 configure do
   set :public_folder, Proc.new { File.join(root, "static") }
 
@@ -16,33 +39,16 @@ configure do
 
   enable :sessions
 
-  MongoMapper.setup({'production' => {'uri' => 'mongodb://localhost'}}, 'production')
-end
-
-class User
-  include MongoMapper::Document
-
-  key :token, String
-  key :name, String
-  key :created, Time
-
-  many :twines
-end
-
-class Twine
-  include MongoMapper::Document
-
-  key :name, String
-  key :token, String
-  key :url, String
-  key :likes, Integer
-
-  belongs_to :user
+  MongoMapper.connection = Mongo::Connection.new('localhost', 27017)
+  MongoMapper.database = "philomela"
+  User.ensure_index(:uid)
+  Twine.ensure_index(:creator_id)
 end
 
 helpers do
   def username
-    session[:identity]
+    me = session[:me]
+    me.handle if me
   end
 end
 
@@ -50,23 +56,43 @@ get '/' do
   erb :front_page
 end
 
-get '/hostpage' do
-  redirect '/' unless username
-  erb :hostpage
-end
+n
+p
 
-post '/login' do
-  redirect '/auth/twitter'
+get '/hostpage'dost '/login' do
+   do
+  redirect '/' unless usernif username
+    redirect '/'
+  ame
+  erb :hostpelse
+    redirecaget '/auth/twitter'
+  end
 end
 
 get '/auth/twitter/callback' do
   auth = request.env["omniauth.auth"]
-  session[:identity] = auth['info']['nickname']
+
+  uid = auth['uid']
+  handle = '@' + auth['info']['nickname']
+
+  user = User.find_by_uid(uid)
+  if user.nil?
+    user = User.new(
+      :uid => uid,
+      :handle => handle,
+      :created => Time.now
+    )
+
+    user.save
+  end
+
+  session[:me] = user
+
   redirect '/hostpage'
 end
 
 get '/logout' do
-  session.delete(:identity)
+  session.clear
   redirect to '/'
 end
 
