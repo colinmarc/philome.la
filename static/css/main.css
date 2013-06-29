@@ -16,15 +16,6 @@ body {
 }
 
 
-hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
-}
-
 img {
     vertical-align: middle;
 }
@@ -46,15 +37,59 @@ textarea {
 body {
   background-color: black;
   color: white;
+  font-family: 'Lato', sans-serif;
+  font-size: 1.5em;
 }
 
+a {
+  color: #2BAD82;
+  text-decoration: none;
+}
 
+a:visited {
+  color: #2BAD82;
+}
 
+a:hover {
+  cursor: pointer;
+  color: #7ED6B9;
+}
 
+#container {
+  margin: 40px auto;
+  width: 600px;
+}
 
+#container .step {
+  margin: 60px auto;
+  text-align: center;
+}
 
+.num {
+  width: 36px;
+  height: 36px;
+  padding: 8px;
+  margin: 0px auto;
 
+  -webkit-border-radius: 999px;
+  -moz-border-radius: 999px;
+  border-radius: 999px;
 
+  border: 2px solid #2BAD82;
+  color: #2BAD82;
+  text-align: center;
+  font-weight: bold;
+}
+
+#footer {
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
+
+  text-align: center;
+  line-height: 1.5em;
+  font-size: .6em;
+}
 
 
 /* ==========================================================================
