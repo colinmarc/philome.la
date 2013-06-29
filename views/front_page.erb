@@ -1,19 +1,23 @@
-<div id="one" class="step">
+<div id="step-one" class="step<% if username; %> completed<% end %>">
 	<div class="num">1</div>
-	<p>
 		<% if username %>
-			Login with Twitter (you are logged in as <%= username_link %>)
+			<p>Login with Twitter</p>
+      <p>(you are logged in as <%= username_link %>)</p>
 		<% else %>
-			<a class="twitterlogin">Login</a> with Twitter
+			<p><a class="twitterlogin">Login</a> with Twitter</p>
 		<% end %>
-	</p>
 </div>
-<div id="two" class="step">
+<div id="step-two" class="step">
 	<div class="num">2</div>
-	<p><a href="#">Upload</a> your .html file</p>
+	<p><a id="upload-browse">Upload</a> your built .html file</p>
+  <div id="drop-area"></div>
 </div>
-<div id="three" class="step">
+<div id="step-three" class="step">
 	<div class="num">3</div>
-	<p><a href="#">Name</a> your game</p>
-	<textarea></textarea>
+  <p>Name your game</p>
+  <form id="publish-form" action="/publish" method="POST">
+    <p><input id="publish-name" type="text" name="name"/></p>
+  </form>
+
+  <a id="publish-submit">publish!</a>
 </div>

@@ -60,12 +60,12 @@ a:hover {
   width: 600px;
 }
 
-#container .step {
+.step {
   margin: 60px auto;
   text-align: center;
 }
 
-.num {
+.step .num {
   width: 36px;
   height: 36px;
   padding: 8px;
@@ -79,6 +79,11 @@ a:hover {
   color: #2BAD82;
   text-align: center;
   font-weight: bold;
+}
+
+.step.completed .num {
+  background: #2BAD82;
+  color: black;
 }
 
 #footer {
