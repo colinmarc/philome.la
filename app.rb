@@ -11,7 +11,7 @@ configure do
   secrets = YAML.load_file(File.join(File.dirname(__FILE__), 'secrets.yaml'))
 
   use OmniAuth::Builder do
-    provider :twitter, secrets['twitter']['key'], secrets['twitter']['secrets']
+    provider :twitter, secrets['twitter']['key'], secrets['twitter']['secret']
   end
 
   enable :sessions
