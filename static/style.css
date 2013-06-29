@@ -1,0 +1,41 @@
+body {
+	background: black;
+}
+.container {
+	text-align: center;
+}
+a {
+	font-weight: bold;
+}
+#profile {
+	width: 100%;
+	padding: 1%;
+	text-align: right;
+	color: white;
+}
+.step {
+	margin: 10%;
+	color: white;
+}
+.num {
+	-webkit-border-radius: 25px;
+	border-radius: 25px;
+	height: 50px;
+	width: 50px;
+	line-height: 50px;
+	color: #3a3a3a;
+	background: white;
+	font-size: 1.4em;
+	text-align: center;
+	margin: 5% auto;
+	webkit-box-shadow: #CCC 0 0 3px;
+	-moz-box-shadow: #ccc 0 0 3px;
+	box-shadow: #CACACA 0 0 3px;
+}
+#three textarea {
+	width: 300px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	display: none;
+}
