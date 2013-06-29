@@ -8,8 +8,10 @@ require 'mongo_mapper'
 configure do
   set :public_folder, Proc.new { File.join(root, "static") }
 
+  secrets = YAML.load_file(File.join(File.dirname(__FILE__), 'secrets.yaml'))
+
   use OmniAuth::Builder do
-    provider :twitter, ENV['TWITTER_KEY'], ENV['TWITTER_SECRET']
+    provider :twitter, secrets['twitter']['key'], secrets['twitter']['secrets']
   end
 
   enable :sessions
