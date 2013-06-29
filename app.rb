@@ -56,16 +56,11 @@ get '/' do
   erb :front_page
 end
 
-n
-p
-
-get '/hostpage'dost '/login' do
-   do
-  redirect '/' unless usernif username
+get  '/login' do
+  if username
     redirect '/'
-  ame
-  erb :hostpelse
-    redirecaget '/auth/twitter'
+  else
+    redirect '/auth/twitter'
   end
 end
 
