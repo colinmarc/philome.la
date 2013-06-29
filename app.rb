@@ -41,20 +41,20 @@ configure do
 
   MongoMapper.connection = Mongo::Connection.new('localhost', 27017)
   MongoMapper.database = "philomela"
+
   User.ensure_index(:uid)
+  User.ensure_index(:name)
+
   Twine.ensure_index(:creator_id)
 end
 
 helpers do
   def username
-    me = session[:me]
-    me.handle if me
+    session[:me]
   end
 end
 
-get '/' do
-  erb :front_page
-end
+# AUTH
 
 get  '/login' do
   if username
@@ -68,30 +68,45 @@ get '/auth/twitter/callback' do
   auth = request.env["omniauth.auth"]
 
   uid = auth['uid']
-  handle = '@' + auth['info']['nickname']
-
   user = User.find_by_uid(uid)
+
   if user.nil?
     user = User.new(
       :uid => uid,
-      :handle => handle,
+      :name => auth['info']['nickname'],
       :created => Time.now
     )
 
     user.save
   end
 
-  session[:me] = user
-
-  redirect '/hostpage'
+  session[:me] = user.name
+  redirect '/'
 end
 
 get '/logout' do
   session.clear
-  redirect to '/'
+  puts session
+  redirect '/'
 end
 
+# EVERYTHING ELSE
 
-get '/:name' do
+get '/' do
+  erb :front_page
+end
+
+post '/save' do
+  redirect '/'
+end
+
+get '/:user' do
+  @user = User.find_by_name(params[:user])
+  halt(404) unless @user
+
   erb :profile
+end
+
+get '/:user/:twine' do
+  erb :twine
 end
