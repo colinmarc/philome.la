@@ -1,5 +1,3 @@
 $(document).ready(function() {
-  $('#three a').click(function() {
-    $('#three textarea').fadeTo('fast', 1);
-  });
+  $('.twitterlogin').oauthpopup({path:'/auth/twitter'});
 });

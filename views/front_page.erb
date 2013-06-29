@@ -2,9 +2,10 @@
 	<div class="num">1</div>
 	<p>
 		<% if username %>
-			You are logged in with Twitter as @<%= username %>
+			Login with Twitter
+      (you are logged in as <%= username %>)
 		<% else %>
-			<a href="/auth/twitter">Login</a> with Twitter
+			<a class="twitterlogin">Login</a> with Twitter
 		<% end %>
 	</p>
 </div>

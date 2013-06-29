@@ -81,7 +81,7 @@ get '/auth/twitter/callback' do
   end
 
   session[:me] = user.name
-  redirect '/'
+  erb "<script>window.close();</script>"
 end
 
 get '/logout' do
