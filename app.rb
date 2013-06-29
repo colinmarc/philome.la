@@ -52,6 +52,10 @@ helpers do
   def username
     session[:me]
   end
+
+  def username_link
+    "<a href=\"/#{username}\">@#{username}</a>"
+  end
 end
 
 # AUTH
