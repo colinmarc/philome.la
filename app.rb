@@ -50,9 +50,9 @@ get '/' do
   erb :front_page
 end
 
-get '/host' do
+get '/hostpage' do
   redirect '/' unless username
-  erb "hello @#{username}"
+  erb :hostpage
 end
 
 post '/login' do
@@ -62,7 +62,7 @@ end
 get '/auth/twitter/callback' do
   auth = request.env["omniauth.auth"]
   session[:identity] = auth['info']['nickname']
-  redirect '/'
+  redirect '/hostpage'
 end
 
 get '/logout' do

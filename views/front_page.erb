@@ -1,1 +1,33 @@
-<a href="/auth/twitter">log in with twitter</a>
+<div id="profile">
+	<% if username %>
+		hello <%= username %> | <a href="">logout</a>
+	<% else %>
+		login
+	<% end %>
+</div>
+
+<div id="two" class="step">
+	<div class="num">1</div>
+	<p>
+		<% if username %>
+			You are logged in with Twitter as @<%= username %>
+		<% else %>
+			<a href="/auth/twitter">Login</a> with Twitter
+		<% end %>
+	</p>
+</div>
+<div id="two" class="step">
+	<div class="num">2</div>
+	<p><a href="#">Upload</a> your .html file</p>
+</div>
+<div id="three" class="step">
+	<div class="num">3</div>
+	<p><a href="#">Name</a> your game</p>
+	<textarea></textarea>
+</div>
+
+<script type="text/javascript">
+	$('#three a').click(function() {
+		$('#three textarea').fadeTo('fast', 1);
+	});
+</script>
