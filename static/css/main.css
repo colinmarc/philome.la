@@ -55,6 +55,11 @@ a:hover {
   color: #7ED6B9;
 }
 
+#header {
+  text-align: center;
+  font-size: 3em;
+}
+
 #container {
   margin: 40px auto;
   width: 600px;
