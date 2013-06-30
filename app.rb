@@ -133,7 +133,7 @@ end
 # EVERYTHING ELSE
 
 get '/' do
-  erb :front_page
+  erb :publish
 end
 
 post '/upload' do
