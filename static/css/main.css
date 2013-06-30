@@ -129,15 +129,15 @@ input#publish-name:focus {
 }
 
 a#publish-submit {
-  font-size: 1.5em;
-  padding: 5px;
+  font-size: 1.25em;
+  padding: 2px 4px;
 }
 
 #publish-submit.ready {
   color: black;
   background: #2BAD82;
   border: 2px solid #2BAD82;
-  border-radius: 2px 4px;
+  border-radius: 4px;
 }
 
 #publish-submit.ready:hover {
