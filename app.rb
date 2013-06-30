@@ -9,7 +9,6 @@ require 'mongo_mapper'
 require 'json'
 require 'uri'
 require 'tempfile'
-require 'pp'
 
 VERIFY_SCRIPT_PATH = File.join(File.dirname(__FILE__), 'verify_twine.js')
 TWINE_PATH = File.join(File.dirname(__FILE__), 'twines')
@@ -150,7 +149,6 @@ end
 
 post '/upload' do
   tempfile = Tempfile.new(['twine', '.html'])
-  puts tempfile.path
 
   tempfile.write(params[:userfile][:tempfile].read)
   valid = system "phantomjs '#{VERIFY_SCRIPT_PATH}' '#{tempfile.path}'"
@@ -178,19 +176,19 @@ post '/publish' do
   uploaded = session[:uploaded]
   name = params[:name]
 
-  if user.nil? || uploaded.nil? || name.nil?
+  if user.nil? || uploaded.nil? || name.nil? || !File.exist?(uploaded[:path])
     @error = "Sorry! Something went wrong. Feel free to email " \
              "<a href=\"mailto:colinmarc@gmail.com?Subject=HALP\" " \
              "target=\"_blank\">colinmarc@gmail.com</a> if you continue to " \
              "have issues."
-    redirect '/'
+    halt(erb(:publish))
   end
 
   name = name[0..50]
   slug = name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
   unless Twine.find_by_creator_id_and_slug(user.id, slug).nil?
-    @error = "You already have a game named that!"
-    redirect '/'
+    @error = "You already have a game named \"#{name}\"!"
+    halt(erb(:publish))
   end
 
   twine = Twine.new(

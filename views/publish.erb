@@ -32,4 +32,7 @@
   </form>
 
   <a id="publish-submit">Publish!</a>
+  <% if @error %>
+    <div id="publish-error"><%= @error %>
+  <% end %>
 </div>

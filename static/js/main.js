@@ -3,6 +3,8 @@ $(document).ready(function() {
     path: '/auth/twitter'
   });
 
+  var MAIL_TO = "<a href=\"mailto:colinmarc@gmail.com?Subject=HALP\" target=\"_blank\">colinmarc@gmail.com</a>"
+
   var $drop_area = $("#drop-area"),
       $drop_text = $drop_area.find('#drop-area-text'),
       animation;
@@ -27,16 +29,16 @@ $(document).ready(function() {
       var message;
 
       if (err == 'FileTooLarge') {
-        message = "That file is too big, sorry! <a href=\"mailto:colinmarc@gmail.com?Subject=HEY%20NOW\" target=\"_blank\">Email me</a> if you're angry.";
+        message = "That file is too big, sorry! Please mail me at " + MAIL_TO + " if you're angry.";
       } else if (err == 'FileTypeNotAllowed') {
         var regex = new RegExp("\\.tws$");
         if (regex.test(file.name)) {
           message = "I can only take .html files - please build the game first from the 'Story' menu."
         } else {
-          message = "Sorry, that doesn't seem to be an .html file. Email <a href=\"mailto:colinmarc@gmail.com?Subject=HEY%20NOW\" target=\"_blank\">colinmarc@gmail.com</a> if you think something went wrong.";
+          message = "Sorry, that doesn't seem to be an .html file. Please send an email to " + MAIL_TO + "  if you think something went wrong.";
         }
       } else {
-        message = "Oh no, something went wrong! Please shoot an email to <a href=\"mailto:colinmarc@gmail.com?Subject=HALP\" target=\"_blank\">";
+        message = "Oh no, something went wrong! Please shoot an email to " + MAIL_TO + ".";
       }
 
       $drop_text.html(message);
@@ -60,8 +62,14 @@ $(document).ready(function() {
         i++;
       }, 800)
     },
-    uploadFinished: function(i, file) {
+    uploadFinished: function(i, file, resp) {
       clearInterval(animation);
+
+      if (!resp.valid) {
+        $drop_text.html("That's an .html file, but it doesn't look like a twine game. Please send an email to " + MAIL_TO + " if you think something went wrong.");
+        return
+      }
+
       var size = Math.round(file.size / 1024) + 'K', name = file.name;
       if (name.length > 25) name = name.substring(0, 22) + '...';
 
