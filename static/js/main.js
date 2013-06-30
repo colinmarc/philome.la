@@ -7,12 +7,39 @@ $(document).ready(function() {
       $drop_text = $drop_area.find('#drop-area-text'),
       animation;
 
+  var check_complete = function() {
+    if ($('.step').length == $('.step.completed').length) {
+      $('#publish-submit').addClass('ready');
+      return true;
+    } else {
+      $('#publish-submit').removeClass('ready');
+      return false;
+    }
+  }
+
+  check_complete();
+
   $drop_area.filedrop({
     url: '/upload',
     allowedfiletypes: ['text/html'],
     maxfilesize: 1,
-    error: function(err) {
-      console.log('upload error!', err);
+    error: function(err, file) {
+      var message;
+
+      if (err == 'FileTooLarge') {
+        message = "That file is too big, sorry! <a href=\"mailto:colinmarc@gmail.com?Subject=HEY%20NOW\" target=\"_blank\">Email me</a> if you're angry.";
+      } else if (err == 'FileTypeNotAllowed') {
+        var regex = new RegExp("\\.tws$");
+        if (regex.test(file.name)) {
+          message = "I can only take .html files - please build the game first from the 'Story' menu."
+        } else {
+          message = "Sorry, that doesn't seem to be an .html file. Email <a href=\"mailto:colinmarc@gmail.com?Subject=HEY%20NOW\" target=\"_blank\">colinmarc@gmail.com</a> if you think something went wrong.";
+        }
+      } else {
+        message = "Oh no, something went wrong! Please shoot an email to <a href=\"mailto:colinmarc@gmail.com?Subject=HALP\" target=\"_blank\">";
+      }
+
+      $drop_text.html(message);
     },
     dragOver: function() {
       $drop_area.addClass('hover');
@@ -56,13 +83,9 @@ $(document).ready(function() {
     check_complete();
   });
 
-  var check_complete = function() {
-    if ($('.step').length == $('.step.completed').length) {
-      $('#publish-submit').addClass('ready');
-    } else {
-      $('#publish-submit').removeClass('ready');
+  $('#publish-submit').click(function() {
+    if (check_complete()) {
+      $('#publish-form').submit();
     }
-  }
-
-  check_complete();
+  });
 });

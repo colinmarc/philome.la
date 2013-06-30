@@ -106,7 +106,8 @@ a:hover {
   border: 2px dashed #7ED6B9;
 }
 
-#drop-area p {
+#drop-area-text {
+  padding: 10px;
   vertical-align: middle;
   text-align: center;
   display: table-cell;
