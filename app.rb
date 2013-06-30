@@ -64,7 +64,19 @@ helpers do
     "<a href=\"/#{username}\">@#{username}</a>"
   end
 
+  def check_uploaded!
+    uploaded = session[:uploaded]
+
+    threshold = Time.now - 60 * 60 # expire after an hour
+    if uploaded && session[:uploaded][:created] < threshold
+      File.unlink(uploaded[:path])
+      session[:uploaded] = nil
+    end
+  end
+
   def uploaded_filename
+    check_uploaded!
+
     uploaded = session[:uploaded]
     return nil if uploaded.nil?
 
@@ -74,6 +86,8 @@ helpers do
   end
 
   def uploaded_filesize
+    check_uploaded!
+
     uploaded = session[:uploaded]
     return nil if uploaded.nil?
 
@@ -133,8 +147,10 @@ post '/upload' do
     session[:uploaded] = {
       :path => tempfile.path,
       :name => params[:userfile][:filename],
-      :size => tempfile.size
+      :size => tempfile.size,
+      :created => Time.now
     }
+    tempfile.close
   else
     tempfile.unlink
     tempfile.close
