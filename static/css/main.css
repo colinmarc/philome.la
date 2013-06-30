@@ -57,7 +57,7 @@ a:hover {
 
 #header {
   text-align: center;
-  font-size: 3em;
+  font-size: 2.5em;
   padding-bottom: 10px;
   border-bottom: 2px dashed white;
 }
@@ -69,7 +69,7 @@ a:hover {
 }
 
 .step {
-  margin: 60px auto;
+  margin: 30px auto;
 }
 
 .step .num {
@@ -99,7 +99,7 @@ a:hover {
   border: 2px dashed #2BAD82;
   border-radius: 4px;
   width: 500px;
-  height: 200px;
+  height: 150px;
   display: table;
 }
 
