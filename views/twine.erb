@@ -1,5 +1,5 @@
 <p>
-  <h2 id="title"><%= @twine.name %></h2>
+  <h2 id="title"><%= sanitize @twine.name %></h2>
   <span id="byline">by <a href="/<%= @user.name %>"><%= "@#{@user.name}" %></a></span>
 </p>
 

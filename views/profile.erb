@@ -1,1 +1,16 @@
-profile for <%= @user.name %> (<%= @user.uid %>)
+<p>
+  <h2>Games by <a href="/<%= @user.name %>"><%= "@#{@user.name}" %></a>:</h2>
+</p>
+
+<% if @twines.empty? %>
+<p>
+  <%= @user.name %> hasn't created any games yet!
+</p>
+<% else %>
+  <% @twines.each do |twine| %>
+    <p>
+      <a href="/<%= @user.name %>/<%= twine.slug %>"><%= sanitize twine.name %></a><br/>
+      played <%= twine.plays %> times
+    </p>
+  <% end %>
+<% end %>

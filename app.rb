@@ -100,6 +100,10 @@ helpers do
 
     (uploaded[:size] / 1024).to_s + 'K'
   end
+
+  def sanitize(text)
+    Rack::Utils.escape_html(text)
+  end
 end
 
 # AUTH
@@ -182,7 +186,7 @@ post '/publish' do
     redirect '/'
   end
 
-  name = URI.escape(name[0..50])
+  name = name[0..50]
   slug = name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
   unless Twine.find_by_creator_id_and_slug(user.id, slug).nil?
     @error = "You already have a game named that!"
@@ -211,6 +215,8 @@ end
 get '/:user' do
   @user = User.find_by_name(params[:user])
   halt(404) unless @user
+
+  @twines = Twine.all(:creator_id => @user.id)
 
   erb :profile
 end
