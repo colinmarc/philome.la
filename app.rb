@@ -7,10 +7,12 @@ require 'omniauth-twitter'
 require 'mongo_mapper'
 
 require 'json'
+require 'uri'
 require 'tempfile'
 require 'pp'
 
 VERIFY_SCRIPT_PATH = File.join(File.dirname(__FILE__), 'verify_twine.js')
+TWINE_PATH = File.join(File.dirname(__FILE__), 'twines')
 
 class User
   include MongoMapper::Document
@@ -25,11 +27,12 @@ end
 class Twine
   include MongoMapper::Document
 
-  key :uid, String
   key :name, String
+  key :slug, String
   key :description, String
   key :created, Time
   key :likes, Integer
+  key :plays, Integer
 
   key :creator_id, ObjectId
   belongs_to :creator, :class_name => 'User'
@@ -52,12 +55,16 @@ configure do
   User.ensure_index(:uid)
   User.ensure_index(:name)
 
-  Twine.ensure_index(:creator_id)
+  Twine.ensure_index([[:creator_id, 1], [:slug, 1]])
 end
 
 helpers do
+  def uid
+    session[:uid]
+  end
+
   def username
-    session[:me]
+    session[:username]
   end
 
   def username_link
@@ -121,7 +128,8 @@ get '/auth/twitter/callback' do
     user.save
   end
 
-  session[:me] = user.name
+  session[:uid] = user.uid
+  session[:username] = user.name
   erb "<script>window.close();</script>"
 end
 
@@ -160,8 +168,44 @@ post '/upload' do
 end
 
 post '/publish' do
-  pp params
-  redirect '/'
+  error = nil
+
+  user = User.find_by_uid(uid)
+  uploaded = session[:uploaded]
+  name = params[:name]
+
+  if user.nil? || uploaded.nil? || name.nil?
+    @error = "Sorry! Something went wrong. Feel free to email " \
+             "<a href=\"mailto:colinmarc@gmail.com?Subject=HALP\" " \
+             "target=\"_blank\">colinmarc@gmail.com</a> if you continue to " \
+             "have issues."
+    redirect '/'
+  end
+
+  name = URI.escape(name[0..50])
+  slug = name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+  unless Twine.find_by_creator_id_and_slug(user.id, slug).nil?
+    @error = "You already have a game named that!"
+    redirect '/'
+  end
+
+  twine = Twine.new(
+    :name => name,
+    :slug => slug,
+    :creator_id => user.id,
+    :created => Time.now,
+    :likes => 0,
+    :plays => 0
+  )
+
+  path = File.join(TWINE_PATH, "#{twine.id}.html")
+  FileUtils.copy(uploaded[:path], path)
+  File.unlink(uploaded[:path])
+  twine.save
+
+  session[:uploaded] = nil
+
+  redirect "/#{user.name}/#{slug}"
 end
 
 get '/:user' do
@@ -171,6 +215,23 @@ get '/:user' do
   erb :profile
 end
 
-get '/:user/:twine' do
+get '/:user/:slug' do
+  @user = User.find_by_name(params[:user])
+  halt(404) unless @user
+
+  @twine = Twine.find_by_creator_id_and_slug(@user.id, params[:slug])
+  halt(404) unless @twine
+
   erb :twine
+end
+
+get '/:user/:slug/play' do
+  user = User.find_by_name(params[:user])
+  halt(404) unless user
+
+  twine = Twine.find_by_creator_id_and_slug(user.id, params[:slug])
+  halt(404) unless twine
+
+  twine.increment(:plays => 1)
+  send_file File.join(TWINE_PATH, "#{twine.id}.html")
 end

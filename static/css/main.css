@@ -63,11 +63,11 @@ a:hover {
 #container {
   margin: 40px auto;
   width: 600px;
+  text-align: center;
 }
 
 .step {
   margin: 60px auto;
-  text-align: center;
 }
 
 .step .num {
@@ -155,6 +155,17 @@ a#publish-submit {
   font-size: .6em;
 }
 
+#title {
+  margin-bottom: 0px;
+}
+
+#play {
+  font-size: 4em;
+}
+
+#tweet-button {
+  vertical-align: middle;
+}
 
 /* ==========================================================================
    Media Queries

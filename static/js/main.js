@@ -60,7 +60,7 @@ $(document).ready(function() {
         i++;
       }, 800)
     },
-    uploadFinished: function(i, file, len) {
+    uploadFinished: function(i, file) {
       clearInterval(animation);
       var size = Math.round(file.size / 1024) + 'K', name = file.name;
       if (name.length > 25) name = name.substring(0, 22) + '...';
