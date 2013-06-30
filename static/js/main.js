@@ -39,7 +39,30 @@ $(document).ready(function() {
       if (name.length > 25) name = name.substring(0, 22) + '...';
 
       $drop_text.html(name + ' (' + size + ')');
-      $('#step-two').addClass('completed')
+
+      $('#step-two').addClass('completed');
+      check_complete();
     }
-  })
+  });
+
+  var $name_input = $('#publish-name');
+  $name_input.on('input', function() {
+    if ($name_input.val().length > 0) {
+      $('#step-three').addClass('completed');
+    } else {
+      $('#step-three').removeClass('completed');
+    }
+
+    check_complete();
+  });
+
+  var check_complete = function() {
+    if ($('.step').length == $('.step.completed').length) {
+      $('#publish-submit').addClass('ready');
+    } else {
+      $('#publish-submit').removeClass('ready');
+    }
+  }
+
+  check_complete();
 });
