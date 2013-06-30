@@ -91,6 +91,47 @@ a:hover {
   color: black;
 }
 
+#drop-area {
+  color: #2BAD82;
+  margin: auto auto;
+  border: 2px dashed #2BAD82;
+  border-radius: 4px;
+  width: 500px;
+  height: 200px;
+  display: table;
+}
+
+#drop-area:hover, #drop-area.hover {
+  color: #7ED6B9;
+  border: 2px dashed #7ED6B9;
+}
+
+#drop-area p {
+  vertical-align: middle;
+  text-align: center;
+  display: table-cell;
+}
+
+input#publish-name {
+  border: 2px solid #2BAD82;
+  border-radius: 4px;
+  padding: 5px 0px;
+  background: black;
+  color: white;
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  width: 400px;
+}
+
+input#publish-name:focus {
+  outline: none;
+  border: 2px solid #7ED6B9;
+}
+
+a#publish-submit {
+  font-size: 2em;
+}
+
 #footer {
   width: 100%;
   padding-top: 10px;

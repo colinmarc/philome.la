@@ -26,7 +26,7 @@
                 window.clearInterval(oauthInterval);
                 options.callback();
             }
-        }, 1000);
+        }, 100);
     };
 
     //bind to element and pop oauth when clicked

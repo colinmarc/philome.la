@@ -1,9 +1,16 @@
 
 require 'rubygems'
 require 'sinatra'
+require 'sinatra/json'
 require 'omniauth'
 require 'omniauth-twitter'
 require 'mongo_mapper'
+
+require 'json'
+require 'tempfile'
+require 'pp'
+
+VERIFY_SCRIPT_PATH = File.join(File.dirname(__FILE__), 'verify_twine.js')
 
 class User
   include MongoMapper::Document
@@ -56,6 +63,22 @@ helpers do
   def username_link
     "<a href=\"/#{username}\">@#{username}</a>"
   end
+
+  def uploaded_filename
+    uploaded = session[:uploaded]
+    return nil if uploaded.nil?
+
+    name = uploaded[:name]
+    name = name[0..22] + '...' if name.length > 25
+    name
+  end
+
+  def uploaded_filesize
+    uploaded = session[:uploaded]
+    return nil if uploaded.nil?
+
+    (uploaded[:size] / 1024).to_s + 'K'
+  end
 end
 
 # AUTH
@@ -90,7 +113,6 @@ end
 
 get '/logout' do
   session.clear
-  puts session
   redirect '/'
 end
 
@@ -100,7 +122,29 @@ get '/' do
   erb :front_page
 end
 
-post '/save' do
+post '/upload' do
+  tempfile = Tempfile.new(['twine', '.html'])
+  puts tempfile.path
+
+  tempfile.write(params[:userfile][:tempfile].read)
+  valid = system "phantomjs '#{VERIFY_SCRIPT_PATH}' '#{tempfile.path}'"
+
+  if valid
+    session[:uploaded] = {
+      :path => tempfile.path,
+      :name => params[:userfile][:filename],
+      :size => tempfile.size
+    }
+  else
+    tempfile.unlink
+    tempfile.close
+  end
+
+  json :valid => valid
+end
+
+post '/publish' do
+  pp params
   redirect '/'
 end
 
