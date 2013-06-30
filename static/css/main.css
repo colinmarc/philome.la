@@ -34,6 +34,10 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+html, body {height: 100%;}
+
+#wrapper {min-height: 100%;}
+
 body {
   background-color: black;
   color: white;
@@ -61,7 +65,7 @@ a:hover {
 
   text-align: center;
   font-size: 2.5em;
-  padding-bottom: 10px;
+  padding: 10px 0;
 }
 
 #header a {
@@ -73,9 +77,24 @@ a:hover {
 }
 
 #container {
-  margin: 40px auto;
+  margin: 20px auto;
   width: 600px;
   text-align: center;
+  overflow:auto;
+  padding-bottom: 50px;
+}
+
+#footer {
+  width: 100%;
+  padding-bottom: 10px;
+  text-align: center;
+  line-height: 1.5em;
+  font-size: .6em;
+
+  position: relative;
+  margin-top: -70px;
+  height: 50px;
+  clear:both;
 }
 
 .step {
@@ -156,15 +175,6 @@ a#publish-submit {
 #publish-submit.ready:hover {
   border: 2px solid #7ED6B9;
   background: #7ED6B9;
-}
-
-#footer {
-  width: 100%;
-  padding: 10px 0px;
-
-  text-align: center;
-  line-height: 1.5em;
-  font-size: .6em;
 }
 
 #title {
