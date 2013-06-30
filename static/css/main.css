@@ -56,10 +56,20 @@ a:hover {
 }
 
 #header {
+  background: #2BAD82;
+  color: black;
+
   text-align: center;
   font-size: 2.5em;
   padding-bottom: 10px;
-  border-bottom: 2px dashed white;
+}
+
+#header a {
+  color: white;
+}
+
+#header a:hover {
+  color: white;
 }
 
 #container {
