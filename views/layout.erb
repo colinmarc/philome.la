@@ -1,21 +1,52 @@
 <!DOCTYPE html>
-<html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
   <head>
-  	<title>Sinatra + Twitter Bootstrap</title>
-    <script src="/vendor/jquery-1.9.1.min.js" type="text/javascript"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/vendor/fontawesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/style.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>philome.la</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/normalize.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+
+    <script src="/js/vendor/modernizr-2.6.2.min.js"></script>
   </head>
   <body>
-    <div class="navbar navbar-fixed-top">
+    <div id="wrapper">
+      <div id="header"><a href="/">philome.la</a>: free twine hosting</div>
 
-  	<div class="container">
-  		<%if @error then %>
-  			<div class="alert alert-error"><%=@error%></div>
-  		<% end %>
-      	<%= yield %>
-  	</div>
+      <div id="container">
+        <%= yield %>
+      </div>
+    </div>
+
+    <div id="footer">
+      <% if username %>
+        logged in as <%= username_link %></a> &bull; <a href="/">publish a new game</a> &bull; <a href="/logout">log out</a><br/>
+      <% end %>
+      built by <a href="http://twitter.com/colinmarc">@colinmarc</a>
+      with help from <a href="http://twitter.com/trucy">@trucy</a>.
+      If you have any issues, email
+      <a href="mailto:colinmarc@gmail.com?Subject=HALP" target="_blank">colinmarc@gmail.com</a>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+    <script src="/js/vendor/jquery.oauthpopup.js"></script>
+    <script src="/js/vendor/jquery.filedrop.js"></script>
+
+    <script src="/js/main.js"></script>
+
+    <script>
+        var _gaq=[['_setAccount','UA-42115384-1'],['_trackPageview']];
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+    </script>
   </body>
 </html>

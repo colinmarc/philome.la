@@ -1,0 +1,38 @@
+<div id="step-one" class="step<% if username; %> completed<% end %>">
+  <div class="num">1</div>
+  <p>
+  <% if username %>
+    Login with Twitter<br/>
+    (you are logged in as <%= username_link %>)
+  <% else %>
+    <a id="twitter-login">Login</a> with Twitter<br/>
+  <% end %>
+  </p>
+</div>
+
+<div id="step-two" class="step<% if uploaded_filename; %> completed<% end %>">
+  <div class="num">2</div>
+  <p>Upload your built .html file</p>
+  <div id="drop-area">
+    <p id="drop-area-text">
+      <% if uploaded_filename %>
+        <%= "#{uploaded_filename} (#{uploaded_filesize})" %>
+      <% else %>
+        Drop your files here
+      <% end %>
+    </p>
+  </div>
+</div>
+
+<div id="step-three" class="step">
+  <div class="num">3</div>
+  <p>Name your game</p>
+  <form id="publish-form" action="/publish" method="POST">
+    <p><input id="publish-name" type="text" name="name" maxlength="50" autocomplete="off"/></p>
+  </form>
+
+  <a id="publish-submit">Publish!</a>
+  <% if @error %>
+    <div id="publish-error"><%= @error %>
+  <% end %>
+</div>
