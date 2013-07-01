@@ -86,13 +86,12 @@ a:hover {
 
 #footer {
   width: 100%;
-  padding-bottom: 10px;
   text-align: center;
   line-height: 1.5em;
   font-size: .6em;
 
   position: relative;
-  margin-top: -70px;
+  margin-top: -80px;
   height: 50px;
   clear:both;
 }
