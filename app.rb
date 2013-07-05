@@ -234,13 +234,14 @@ end
 
 post '/:user/:slug/delete' do
   user = User.find_by_name(params[:user])
-  halt(404) unless @user
-  halt(403) unless @user.uid == uid
+  halt(404) unless user
+  halt(403) unless user.uid == uid
 
-  twine = Twine.find_by_creator_id_and_slug(@user.id, params[:slug])
-  halt(404) unless @twine
+  twine = Twine.find_by_creator_id_and_slug(user.id, params[:slug])
+  halt(404) unless twine
 
-  File.unlink(File.join(TWINE_PATH, "#{twine.id}.html"))
+  path = File.join(TWINE_PATH, "#{twine.id}.html")
+  File.unlink(path) if File.exist?(path)
   twine.delete
 
   redirect "/#{user.name}"

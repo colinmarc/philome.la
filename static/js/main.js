@@ -98,10 +98,30 @@ $(document).ready(function() {
       $('#publish-form').submit();
     }
   });
-  $('a.del').click(function(){
-    $(this).parent().siblings('.prompt').slideToggle('fast');
+
+  // TODO: split out profile page stuff
+
+  $('.delete').click(function(){
+    var $prompt = $(this).parent().siblings('.prompt');
+    $('.prompt').not($prompt).slideUp('fast');
+    $prompt.slideToggle('fast');
   });
-  $('a.no').click(function() {
+
+  $('.delete-no').click(function() {
     $(this).parent().slideUp('fast');
+  });
+
+  $('.delete-yes').click(function() {
+    var $this = $(this);
+    $.post($this.data()['delUrl']);
+    $this.parents('.game').slideUp('fast', function() {
+      $this.remove();
+    });
+  });
+
+  $('.game').hover(function() {
+    $(this).find('.delete').removeClass('invisible');
+  }, function() {
+    $(this).find('.delete').addClass('invisible');
   });
 });

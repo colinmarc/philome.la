@@ -200,32 +200,33 @@ a#publish-submit {
   display: block;
   clear: both;
 }
-.title, .delete, .edit {
+
+.title, .right {
   padding: .25em 0;
   margin: 0;
 }
+
 .title {
   text-align: left;
-  width: 80%;
+  width: 70%;
   float: left;
 }
-.delete, .edit {
-  width: 10%;
+
+.right {
+  width: 30%;
   float: right;
+  text-align: right;
 }
+
 .delete {
-  color: tomato;
+  margin-left: 4px;
 }
-.edit {
-  color: #0088cc;
-}
-.upload {
-  display: none;
-}
+
 .prompt {
   display: none;
   width: 100%;
   margin-bottom: 0.5em;
+  clear: both;
 }
 
 /* ==========================================================================

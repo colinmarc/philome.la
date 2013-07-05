@@ -12,8 +12,15 @@
       <p class="title">
         <a href="/<%= @user.name %>/<%= twine.slug %>"><%= sanitize twine.name %></a><br/>
       </p>
-      <div class="delete"><a class="del">✕</a></div>
-      <div class="prompt">You sure? <a data-del-url="/<%= @user.name %>/<%= twine.slug %>/delete">Yes</a> / <a class="no">No</a></div>
+      <div class="right">
+        <span><%= twine.plays %> plays</span>
+        <% if @user.uid == uid %>
+          <a class="delete invisible">✕</a>
+        <% end %>
+      </div>
+      <% if @user.uid == uid %>
+      <div class="prompt">You sure? <a class="delete-yes" data-del-url="/<%= @user.name %>/<%= twine.slug %>/delete">Yes</a> / <a class="delete-no">No</a></div>
+      <% end %>
     </div>
   <% end %>
 <% end %>
