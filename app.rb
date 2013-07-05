@@ -181,6 +181,10 @@ post '/publish' do
              "<a href=\"mailto:colinmarc@gmail.com?Subject=HALP\" " \
              "target=\"_blank\">colinmarc@gmail.com</a> if you continue to " \
              "have issues."
+
+    # clear out the session just in case
+    session.delete(:uploaded)
+
     halt(erb(:publish))
   end
 
@@ -205,8 +209,7 @@ post '/publish' do
   File.unlink(uploaded[:path])
   twine.save
 
-  session[:uploaded] = nil
-
+  session.delete(:uploaded)
   redirect "/#{user.name}/#{slug}"
 end
 
@@ -228,6 +231,48 @@ get '/:user/:slug' do
 
   erb :twine
 end
+
+post '/:user/:slug/delete' do
+  user = User.find_by_name(params[:user])
+  halt(404) unless @user
+  halt(403) unless @user.uid == uid
+
+  twine = Twine.find_by_creator_id_and_slug(@user.id, params[:slug])
+  halt(404) unless @twine
+
+  File.unlink(File.join(TWINE_PATH, "#{twine.id}.html"))
+  twine.delete
+
+  redirect "/#{user.name}"
+end
+
+post '/:user/:slug/update' do
+  user = User.find_by_name(params[:user])
+  halt(404) unless @user
+  halt(403) unless @user.uid == uid
+
+  twine = Twine.find_by_creator_id_and_slug(@user.id, params[:slug])
+  halt(404) unless @twine
+
+  uploaded = session[:uploaded]
+
+  if uploaded.nil? || !File.exist?(uploaded[:path])
+    @error = "Sorry! Something went wrong. Feel free to email " \
+             "<a href=\"mailto:colinmarc@gmail.com?Subject=HALP\" " \
+             "target=\"_blank\">colinmarc@gmail.com</a> if you continue to " \
+             "have issues."
+    halt(erb(:twine))
+  end
+
+  path = File.join(TWINE_PATH, "#{twine.id}.html")
+  FileUtils.copy(uploaded[:path], path)
+  File.unlink(uploaded[:path])
+
+  session[:uploaded] = nil
+  redirect "/#{user.name}/#{twine.slug}"
+end
+
+
 
 get '/:user/:slug/play' do
   user = User.find_by_name(params[:user])
