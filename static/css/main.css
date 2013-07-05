@@ -91,7 +91,7 @@ a:hover {
   font-size: .6em;
 
   position: relative;
-  margin-top: -80px;
+  margin-top: -60px;
   height: 50px;
   clear:both;
 }
@@ -167,7 +167,9 @@ input#publish-name:focus {
 
 a#publish-submit {
   font-size: 1.25em;
-  padding: 2px 4px;
+  padding: 0.2em 0.6em;
+  margin-top: 1em;
+  display: inline-block;
 }
 
 #publish-submit.ready {
