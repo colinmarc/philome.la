@@ -8,9 +8,14 @@
 </p>
 <% else %>
   <% @twines.each do |twine| %>
-    <p>
-      <a href="/<%= @user.name %>/<%= twine.slug %>"><%= sanitize twine.name %></a><br/>
-      played <%= twine.plays %> times
-    </p>
+  	<div class="game">
+    	<p class="title">
+     	<a href="/<%= @user.name %>/<%= twine.slug %>"><%= sanitize twine.name %></a><br/>
+    	</p>
+    	<div class="delete"><a class="del">✕</a></div>
+    	<div class="edit"><a>⇡</a></div>
+    	<div class="upload"></div>
+    	<div class="prompt">Are you sure you want to delete <% twine.name %>? <a data-delurl="/<%= @user.name %>/<%= twine.slug %>/delete">Yes</a> / <a class="no">No</a></div>
+    </div>
   <% end %>
 <% end %>

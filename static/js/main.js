@@ -84,8 +84,10 @@ $(document).ready(function() {
   $name_input.on('input', function() {
     if ($name_input.val().length > 0) {
       $('#step-three').addClass('completed');
+      $('#publish-name').addClass('completed');
     } else {
       $('#step-three').removeClass('completed');
+      $('#publish-name').removeClass('completed');
     }
 
     check_complete();
@@ -95,5 +97,11 @@ $(document).ready(function() {
     if (check_complete()) {
       $('#publish-form').submit();
     }
+  });
+  $('a.del').click(function(){
+    $(this).parent().siblings('.prompt').slideToggle('fast');
+  });
+  $('a.no').click(function() {
+    $(this).parent().slideUp('fast');
   });
 });

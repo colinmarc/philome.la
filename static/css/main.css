@@ -39,8 +39,8 @@ html, body {height: 100%;}
 #wrapper {min-height: 100%;}
 
 body {
-  background-color: black;
-  color: white;
+  background-color: #050505;
+  color: #C7FFD6;
   font-family: 'Lato', sans-serif;
   font-size: 1.5em;
 }
@@ -56,7 +56,7 @@ a:visited {
 
 a:hover {
   cursor: pointer;
-  color: #7ED6B9;
+  color: white;
 }
 
 #header {
@@ -69,7 +69,7 @@ a:hover {
 }
 
 #header a {
-  color: white;
+  color: #C7FFD6;
 }
 
 #header a:hover {
@@ -131,9 +131,10 @@ a:hover {
   display: table;
 }
 
-#drop-area:hover, #drop-area.hover {
+#drop-area:hover, #drop-area.hover, #drop-area.uploaded {
   color: #7ED6B9;
   border: 2px dashed #7ED6B9;
+  background: #242424;
 }
 
 #drop-area-text {
@@ -141,6 +142,7 @@ a:hover {
   vertical-align: middle;
   text-align: center;
   display: table-cell;
+  color: #7ED6B9;
 }
 
 input#publish-name {
@@ -152,6 +154,10 @@ input#publish-name {
   text-align: center;
   font-family: 'Lato', sans-serif;
   width: 400px;
+}
+
+input#publish-name.completed {
+  background: #242424;
 }
 
 input#publish-name:focus {
@@ -186,6 +192,40 @@ a#publish-submit {
 
 #tweet-button {
   vertical-align: middle;
+}
+
+/* Profile */
+
+.game {
+  display: block;
+  clear: both;
+}
+.title, .delete, .edit {
+  height: 2em;
+  margin: 0;
+}
+.title {
+  text-align: left;
+  width: 80%;
+  float: left;
+}
+.delete, .edit {
+  width: 10%;
+  float: right;
+}
+.delete {
+  color: tomato;
+}
+.edit {
+  color: #0088cc;
+}
+.upload {
+  display: none;
+}
+.prompt {
+  display: none;
+  width: 100%;
+  margin-bottom: 0.5em;
 }
 
 /* ==========================================================================

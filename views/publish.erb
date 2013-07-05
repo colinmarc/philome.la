@@ -13,7 +13,7 @@
 <div id="step-two" class="step<% if uploaded_filename; %> completed<% end %>">
   <div class="num">2</div>
   <p>Upload your built .html file</p>
-  <div id="drop-area">
+  <div id="drop-area" class="<% if uploaded_filename %>uploaded<% end %>">
     <p id="drop-area-text">
       <% if uploaded_filename %>
         <%= "#{uploaded_filename} (#{uploaded_filesize})" %>
