@@ -1,3 +1,4 @@
 Gemfile.lock
 secrets.yaml
 twines
+.DS_Store
