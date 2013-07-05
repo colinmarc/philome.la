@@ -181,6 +181,10 @@ post '/publish' do
              "<a href=\"mailto:colinmarc@gmail.com?Subject=HALP\" " \
              "target=\"_blank\">colinmarc@gmail.com</a> if you continue to " \
              "have issues."
+
+    # clear out the session just in case
+    session.delete(:uploaded)
+
     halt(erb(:publish))
   end
 
@@ -205,7 +209,7 @@ post '/publish' do
   File.unlink(uploaded[:path])
   twine.save
 
-  session[:uploaded] = nil
+  session.delete(:uploaded)
   redirect "/#{user.name}/#{slug}"
 end
 
