@@ -41,6 +41,7 @@ $(document).ready(function() {
         message = "Oh no, something went wrong! Please shoot an email to " + MAIL_TO + ".";
       }
 
+      $drop_area.removeClass('uploaded');
       $drop_text.html(message);
     },
     dragOver: function() {
@@ -50,6 +51,7 @@ $(document).ready(function() {
       $drop_area.removeClass('hover');
     },
     drop: function() {
+      $drop_area.addClass('uploaded');
       $drop_area.removeClass('hover');
     },
     uploadStarted: function(file) {
@@ -67,7 +69,8 @@ $(document).ready(function() {
 
       if (!resp.valid) {
         $drop_text.html("That's an .html file, but it doesn't look like a twine game. Please send an email to " + MAIL_TO + " if you think something went wrong.");
-        return
+        $drop_area.removeClass('uploaded');
+        return;
       }
 
       var size = Math.round(file.size / 1024) + 'K', name = file.name;
