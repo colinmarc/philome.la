@@ -246,33 +246,31 @@ post '/:user/:slug/delete' do
   redirect "/#{user.name}"
 end
 
-post '/:user/:slug/update' do
-  user = User.find_by_name(params[:user])
-  halt(404) unless @user
-  halt(403) unless @user.uid == uid
+# post '/:user/:slug/update' do
+#   user = User.find_by_name(params[:user])
+#   halt(404) unless @user
+#   halt(403) unless @user.uid == uid
 
-  twine = Twine.find_by_creator_id_and_slug(@user.id, params[:slug])
-  halt(404) unless @twine
+#   twine = Twine.find_by_creator_id_and_slug(@user.id, params[:slug])
+#   halt(404) unless @twine
 
-  uploaded = session[:uploaded]
+#   uploaded = session[:uploaded]
 
-  if uploaded.nil? || !File.exist?(uploaded[:path])
-    @error = "Sorry! Something went wrong. Feel free to email " \
-             "<a href=\"mailto:colinmarc@gmail.com?Subject=HALP\" " \
-             "target=\"_blank\">colinmarc@gmail.com</a> if you continue to " \
-             "have issues."
-    halt(erb(:twine))
-  end
+#   if uploaded.nil? || !File.exist?(uploaded[:path])
+#     @error = "Sorry! Something went wrong. Feel free to email " \
+#              "<a href=\"mailto:colinmarc@gmail.com?Subject=HALP\" " \
+#              "target=\"_blank\">colinmarc@gmail.com</a> if you continue to " \
+#              "have issues."
+#     halt(erb(:twine))
+#   end
 
-  path = File.join(TWINE_PATH, "#{twine.id}.html")
-  FileUtils.copy(uploaded[:path], path)
-  File.unlink(uploaded[:path])
+#   path = File.join(TWINE_PATH, "#{twine.id}.html")
+#   FileUtils.copy(uploaded[:path], path)
+#   File.unlink(uploaded[:path])
 
-  session[:uploaded] = nil
-  redirect "/#{user.name}/#{twine.slug}"
-end
-
-
+#   session[:uploaded] = nil
+#   redirect "/#{user.name}/#{twine.slug}"
+# end
 
 get '/:user/:slug/play' do
   user = User.find_by_name(params[:user])
