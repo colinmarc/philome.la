@@ -62,10 +62,10 @@ a:hover {
 #header {
   background: #2BAD82;
   color: black;
-
   text-align: center;
   font-size: 2.5em;
   padding: 10px 0;
+  width: 100%;
 }
 
 #header a {
@@ -81,7 +81,6 @@ a:hover {
   width: 600px;
   text-align: center;
   overflow:auto;
-  padding-bottom: 50px;
 }
 
 #footer {
@@ -89,11 +88,7 @@ a:hover {
   text-align: center;
   line-height: 1.5em;
   font-size: .6em;
-
-  position: relative;
-  margin-top: -70px;
-  height: 50px;
-  clear:both;
+  padding: 0.5em 0;
 }
 
 .step {
