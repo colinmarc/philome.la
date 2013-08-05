@@ -1,6 +1,12 @@
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="<%= sanitize @twine.name %>">
+<meta name="twitter:description" content="A twine game hosted on philome.la">
+<meta name="twitter:creator:id" content="<%= @user.uid %>">
+<meta name="twitter:image:src" content="http://philome.la/phi.png">
+
 <p>
   <h2 id="title"><%= sanitize @twine.name %></h2>
-  <span id="byline">by <a href="/<%= @user.name %>"><%= "@#{@user.name}" %></a></span>
+  <span id="byline">by <a href="/<%= @user.name %>">@<%= @user.name %></a></span>
 </p>
 
 <p>
@@ -8,9 +14,9 @@
 </p>
 
 <p>
-  played <%= @twine.plays %> times ⋅ 
+  played <%= @twine.plays %> times ⋅
   <span id="tweet-button">
-    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-text="&quot;<%= @twine.name %>&quot;, by <%= "@#{@user.name}" %>">Tweet</a>
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-text="&quot;<%= @twine.name %>&quot;, by @<%= @user.name %>">Tweet</a>
   </span>
 </p>
 
