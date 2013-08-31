@@ -27,7 +27,7 @@
 
     <div id="footer">
       <% if username %>
-        logged in as <%= username_link %></a> ⋅ <a href="/">publish a new game</a> ⋅ <a href="/logout">log out</a><br/>
+        logged in as <%= username_link %> ⋅ <a href="/<%=username%>">manage/delete your games</a> ⋅ <a href="/">publish a new game</a> ⋅ <a href="/logout">log out</a><br/>
       <% end %>
       built by <a href="http://twitter.com/colinmarc">@colinmarc</a>
       and <a href="http://twitter.com/trucy">@trucy</a>.
