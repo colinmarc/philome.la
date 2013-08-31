@@ -29,9 +29,13 @@
   <p>Name your game</p>
   <form id="publish-form" action="/publish" method="POST">
     <p><input id="publish-name" type="text" name="name" maxlength="50" autocomplete="off"/></p>
+    <input id="publish-tweet" type="hidden" name="tweet" value="yes"/>
   </form>
 
   <a id="publish-submit">Publish!</a>
+  <div id="publish-tweet-question">
+    <a href="javascript:void" id="publish-tweet-checkbox" class="checked"></a> announce my game on <a href="https://twitter.com/philomela_twine">@philomela_twine</a>
+  </div>
   <% if @error %>
     <div id="publish-error"><%= @error %>
   <% end %>

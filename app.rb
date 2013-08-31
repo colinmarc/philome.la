@@ -5,6 +5,7 @@ require 'sinatra/json'
 require 'omniauth'
 require 'omniauth-twitter'
 require 'mongo_mapper'
+require 'twitter'
 
 require 'json'
 require 'uri'
@@ -17,7 +18,7 @@ class User
   include MongoMapper::Document
 
   key :uid, String
-  key :handle, String
+  key :name, String
   key :created, Time
 
   many :twines, :class_name => 'Twine', :foreign_key => :creator_id
@@ -47,6 +48,13 @@ configure do
   end
 
   enable :sessions
+
+  Twitter.configure do |config|
+    config.consumer_key = secrets['twitter']['tweeter_key']
+    config.consumer_secret = secrets['twitter']['tweeter_secret']
+    config.oauth_token = secrets['twitter']['oauth_token']
+    config.oauth_token_secret = secrets['twitter']['oauth_secret']
+  end
 
   MongoMapper.connection = Mongo::Connection.new('localhost', 27017)
   MongoMapper.database = "philomela"
@@ -208,8 +216,12 @@ post '/publish' do
   FileUtils.copy(uploaded[:path], path)
   File.unlink(uploaded[:path])
   twine.save
-
   session.delete(:uploaded)
+
+  if params[:tweet] == 'yes'
+    Twitter.update("\"#{twine.name}\", by @#{user.name} http://philome.la/#{user.name}/#{twine.slug}")
+  end
+
   redirect "/#{user.name}/#{slug}"
 end
 

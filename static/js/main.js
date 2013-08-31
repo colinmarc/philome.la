@@ -96,6 +96,21 @@ $(document).ready(function() {
     check_complete();
   });
 
+  var $tweet_checkbox = $('#publish-tweet-checkbox'),
+      $tweet_input = $('#publish-tweet'),
+      checked = true;
+  $tweet_checkbox.click(function() {
+    if (checked) {
+      checked = false;
+      $tweet_checkbox.removeClass('checked');
+      $tweet_input.val('no');
+    } else {
+      checked = true;
+      $tweet_checkbox.addClass('checked');
+      $tweet_input.val('yes');
+    }
+  });
+
   $('#publish-submit').click(function() {
     if (check_complete()) {
       $('#publish-form').submit();
