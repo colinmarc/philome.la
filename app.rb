@@ -295,3 +295,8 @@ get '/:user/:slug/play' do
   twine.increment(:plays => 1)
   send_file File.join(TWINE_PATH, "#{twine.id}.html")
 end
+
+not_found do
+  erb '<center><img src="404.png"/>404 not found</center>'
+end
+
