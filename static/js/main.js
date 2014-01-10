@@ -102,11 +102,11 @@ $(document).ready(function() {
   $tweet_checkbox.click(function() {
     if (checked) {
       checked = false;
-      $tweet_checkbox.removeClass('checked');
+      $tweet_checkbox.text('☐')
       $tweet_input.val('no');
     } else {
       checked = true;
-      $tweet_checkbox.addClass('checked');
+      $tweet_checkbox.text('☒')
       $tweet_input.val('yes');
     }
   });

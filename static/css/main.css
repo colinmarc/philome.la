@@ -172,25 +172,13 @@ div#publish-tweet-question {
 
 #publish-tweet-checkbox {
   display: inline-block;
-  width: 15px;
-  height: 15px;
-  border-radius: 4px;
-  border: 2px solid #2BAD82;
-  margin-bottom: -4px;
-  margin-right: 5px;
-}
-
-#publish-tweet-checkbox.checked {
-  background: #2BAD82;
+  font-size: 1.5em;
+  position: relative;
+  top: 2.5px;
 }
 
 #publish-tweet-checkbox:hover {
   cursor: pointer;
-  border: 2px solid #7ED6B9;
-}
-
-#publish-tweet-checkbox.checked:hover {
-  background: #7ED6B9;
 }
 
 a#publish-submit {
