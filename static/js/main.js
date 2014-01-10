@@ -106,7 +106,7 @@ $(document).ready(function() {
       $tweet_input.val('no');
     } else {
       checked = true;
-      $tweet_checkbox.text('☒')
+      $tweet_checkbox.text('☑')
       $tweet_input.val('yes');
     }
   });
