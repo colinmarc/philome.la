@@ -1,3 +1,4 @@
+# encoding: utf-8
 
 require 'rubygems'
 require 'sinatra'
@@ -198,6 +199,13 @@ post '/publish' do
 
   name = name[0..50]
   slug = name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+  if slug.empty?
+    @error = "Please add some non-unicode non-dash non-space characters to " \
+             "the name, or else it'll be hard to link to it. ☃"
+    halt(erb(:publish))
+  end
+
+
   unless Twine.find_by_creator_id_and_slug(user.id, slug).nil?
     @error = "You already have a game named \"#{name}\"!"
     halt(erb(:publish))
