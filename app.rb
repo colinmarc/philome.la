@@ -7,6 +7,7 @@ require 'omniauth'
 require 'omniauth-twitter'
 require 'mongo_mapper'
 require 'twitter'
+require 'unicode_utils'
 
 require 'json'
 require 'uri'
@@ -198,7 +199,7 @@ post '/publish' do
   end
 
   name = name[0..50]
-  slug = name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+  slug = UnicodeUtils.nfkc(name).downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
   if slug.empty?
     @error = "Please add some non-unicode non-space characters to " \
              "the name, or it'll be hard to link to it. ☃"
