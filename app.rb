@@ -201,7 +201,7 @@ post '/publish' do
   slug = name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
   if slug.empty?
     @error = "Please add some non-unicode non-dash non-space characters to " \
-             "the name, or else it'll be hard to link to it. ☃"
+             "the name, or it'll be hard to link to it. ☃"
     halt(erb(:publish))
   end
 

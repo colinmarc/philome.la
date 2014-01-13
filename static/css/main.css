@@ -213,6 +213,35 @@ a#publish-submit {
   vertical-align: middle;
 }
 
+#publish-error {
+  display: table;
+  margin: 0px auto;
+}
+
+#publish-error > div {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#publish-error-exclamation {
+  padding: 12px;
+}
+
+#publish-error-exclamation > p {
+  width: 36px;
+  height: 36px;
+
+  -webkit-border-radius: 999px;
+  -moz-border-radius: 999px;
+  border-radius: 999px;
+
+  border: 2px solid #2BAD82;
+  background: #2BAD82;
+  color: black;
+  text-align: center;
+  font-weight: bold;
+}
+
 /* Profile */
 
 .game {
