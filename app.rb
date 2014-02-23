@@ -306,6 +306,6 @@ get '/:user/:slug/play' do
 end
 
 not_found do
-  erb '<div id="porpy"><center><img src="404.png"/>404 not found</center></div>'
+  erb '<div id="porpy"><center><img src="/404.png"/>404 not found</center></div>'
 end
 
