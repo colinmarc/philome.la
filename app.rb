@@ -228,7 +228,11 @@ post '/publish' do
   session.delete(:uploaded)
 
   if params[:tweet] == 'yes'
-    Twitter.update("\"#{twine.name}\", by @#{user.name} http://philome.la/#{user.name}/#{twine.slug}")
+    begin
+      Twitter.update("\"#{twine.name}\", by @#{user.name} http://philome.la/#{user.name}/#{twine.slug}")
+    rescue Twitter::Error::Forbidden
+      # don't care
+    end
   end
 
   redirect "/#{user.name}/#{slug}"
